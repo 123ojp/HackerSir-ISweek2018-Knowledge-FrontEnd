@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Knowledge of Hacker</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main">
+						<header>
+							<span class="avatar"><img src="images/Mrblack.png" alt="" /></span>
+							<h1>黑客知識王</h1>
+							<p>Knowledge of Hacker</p>
+						</header>
+						
+						<hr />
+						<h2>~~請先註冊~~</h2>
+						<form method="post" action="#">
+							<div class="fields">
+								<div class="field">
+									<input type="text" name="name" id="name" placeholder="Name" />
+								</div>						
+							</div>
+							<ul class="actions special">
+								<li><a href="game.html" class="button">送出學號</a></li>
+							</ul>
+							
+						</form>
+						
+						<form style="display:none" method="post" id="nickname"  action="#">
+							<div class="fields">
+								<div class="field">
+									<input type="text" name="nickname" id="nickname" placeholder="nickname" />
+								</div>
+							</div>
+							<ul class="actions special">
+								<li><a href="game.html" class="button">Started</a></li>
+							</ul>
+							
+						</form>
+						
+						<hr />
+						
+						<footer>
+							<ul class="actions special">
+								<li><a href="rule.html" class="button">Rulebook</a></li>
+								<li><a href="About.html" class="button">About Hackersir</a></li>
+							</ul>
+							<ul class="icons">
+								<li><a href="#" class="fa-twitter">Twitter</a></li>
+								<li><a href="#" class="fa-instagram">Instagram</a></li>
+								<li><a href="#" class="fa-facebook">Facebook</a></li>
+							</ul>
+						</footer>
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="copyright">
+							<li>&copy; Design: <a href="http://html5up.net">FCU Hackersir</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script>
+				if ('addEventListener' in window) {
+					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+				
+				var sock = io.connect("ws://127.0.0.1:3000")
+				document.querySelector('#submit').addEventListener('click', function(ev){
+					var data = document.querySelector('[name=name]').value
+					sock.emit("login", {username: data})
+					
+					sock.on('result', (data) => { 
+						if(data.to === "login"){
+							if(data.registered === false){
+								document.getElementById("nickname").style = ""
+								
+								var nick = document.querySelector('[name=nickname]').value
+								sock.emit("setName", {nickname: nick, token: data.token})
+								document.cookie=data.token
+							   }
+							else{
+								alert("是否直接進入遊戲")
+							}
+						}
+						
+					})
+				})
+			</script>
+
+	</body>
+</html>
