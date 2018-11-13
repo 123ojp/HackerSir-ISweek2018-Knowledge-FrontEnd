@@ -30,7 +30,7 @@
 								</div>						
 							</div>
 							<ul class="actions special">
-								<li><a href="game.html" class="button">送出學號</a></li>
+								<li><a id="sid" class="button">送出學號</a></li>
 							</ul>
 							
 						</form>
@@ -39,10 +39,10 @@
 							<div class="fields">
 								<div class="field">
 									<input type="text" name="nickname" id="nickname" placeholder="nickname" />
-								</div>
+								</div> 
 							</div>
 							<ul class="actions special">
-								<li><a href="game.html" class="button">Started</a></li>
+								<li><a id="start" class="button" onClick="function(startgame)" >Started</a></li>
 							</ul>
 							
 						</form>
@@ -65,12 +65,12 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<ul class="copyright">
-							<li>&copy; Design: <a href="http://html5up.net">FCU Hackersir</a></li>
+							<li>&copy; Design: <a href="http://html5up.net">html5up</a></li>
 						</ul>
 					</footer>
 
 			</div>
-
+			<div id="token"></div>
 		<!-- Scripts -->
 			<script>
 				if ('addEventListener' in window) {
@@ -78,22 +78,33 @@
 					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
 				}
 				
+				
+				
 				var sock = io.connect("ws://127.0.0.1:3000")
 				document.querySelector('#submit').addEventListener('click', function(ev){
-					var data = document.querySelector('[name=name]').value
-					sock.emit("login", {username: data})
+					var data = document.querySelector('[name=name]').value //data 接
+					sock.emit("login", {username: data}) //把字改掉
 					
-					sock.on('result', (data) => { 
+					var token = document.querySelector('[name=token]').value//接token
+					localStorage.setItem("token", token);//存token
+					
+					
+					sock.on('result', (data) => { 												 
 						if(data.to === "login"){
-							if(data.registered === false){
-								document.getElementById("nickname").style = ""
+							if(data.registered === false){ //要 setName
+								document.getElementById("nickname").style = "" //nickname 顯示
 								
 								var nick = document.querySelector('[name=nickname]').value
-								sock.emit("setName", {nickname: nick, token: data.token})
+								sock.emit("setName", {nickname: nick, token: data.token},function(startgame))
 								document.cookie=data.token
-							   }
-							else{
+										  
+								location.href = "/game.html"
+								
+								
+							}
+							else{ //不用setName
 								alert("是否直接進入遊戲")
+								location.href = "/game.html"
 							}
 						}
 						

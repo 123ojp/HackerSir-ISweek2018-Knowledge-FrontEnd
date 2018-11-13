@@ -7,32 +7,75 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+		
+		.vbox{
+			margin:0px auto;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width:140px;
+			height:140px;
+		}
+			.vbox > div{
+				margin-top: 30px;
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
 		<!-- Wrapper -->
 			<div id="wrapper">
-
-				<!-- Main -->
-					<section id="main">
+				<!--waiting-->
+					<section id="mainwaiting">
+						<header>
+							<h1 name="finding">找尋對手中</h1><!--題目-->
+							<h2 name="find" style="display:none">對手 :　</h2>
+						</header>
+						<div class="vbox">
+							<div data-loader="ball-rotate"></div>
+						</div>
+						<a class="button" onClick="function(cancel)" >cancel</a>
+					</section>
+				<!-- Ingame -->
+					<section style="display:none" id="main">
 						<header>
 							<h1 name="question">知識王題目</h1><!--題目-->
+							<h2>My Score</h2>
+							<p id="myscore"></p>
+							<h3>Other Score</h3>
+							<p id="otherscore"></p>
 						</header>
 						<hr />
 						<form method="post" action="#">
 							
 							<ul class="actions special">
-								<li><a name="S1" class="button">1.</a></li><!--ANS 1-->
+								<li><a name="S0" class="button" onclick="getanswer(this)">1.</a></li><!--ANS 1-->
 							</ul>
 							<ul class="actions special">
-								<li><a name="S2" class="button">2.</a></li><!--ANS 2-->
+								<li><a name="S1" class="button" onclick="getanswer()">2.</a></li><!--ANS 2-->
 							</ul>
 							<ul class="actions special">
-								<li><a name="S3" class="button">3.</a></li><!--ANS 3-->
+								<li><a name="S2" class="button" onclick="getanswer()">3.</a></li><!--ANS 3-->
 							</ul>
 							<ul class="actions special">
-								<li><a name="S4" class="button">4.</a></li><!--ANS 4-->
+								<li><a name="S3" class="button" onclick="getanswer()">4.</a></li><!--ANS 4-->
 							</ul>
+						</form>
+						<hr />
+					</section>
+				<!--成績結算-->
+					<section style="display:none" id="mainend">
+						<header>
+							<h1 name="question">成績結算</h1><!--題目-->
+						</header>
+						<hr />
+						<form method="post" action="#">
+							<h1 id="halt"></h1>
+							<br>
+							<h1>Rank : </h1>
+							<h3 id="haltrank"></h3>
+							
 						</form>
 						<hr />
 					</section>
@@ -52,9 +95,82 @@
 					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
 					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
 				}
-	
 				
+				
+				/*waiting畫面*/
+				
+				var token= localStorage.getItem("token");//把localStorage的東西拉回來
+				
+				var sock = io.connect("ws://127.0.0.1:3000")
+				
+				document.querySelector('#submit').addEventListener('click', function(ev){
+					
+					sock.emit('start',{use_bot:false})
+					sock.on('result', (data) => {
+						document.getElementsByName("finding").style = "display:none"
+						document.getElementsByName("find").style = ""
+						document.getElementsByName("find") = data.opponent_name //對手名
+					})
+					sock.emit('result',{cancelled:true},function(cancel))
+					
+					
+					/*遊戲畫面*/
+					
+					document.getElementById("mainwaiting").style = "display:none"
+				   document.getElementById("main").style = ""
+				   document.getElementById("mainend").style = "display:none"
+					
+					var data = document.querySelector('[name=question]').value
+					sock.emit("getProblem", {token:token})
+					
+					sock.on('result', (data) => { 
+						
+						if(data.to === "getProblem"){ //確認接到的回覆是哪個問題的
+							document.getElementById("question").textContent = data.question//題目
+							for(var i=0;i<4;i++){
+								document.getElementsByName("S"+i).textContent =data.answers[i] //陣列接選項
+							}
+						}
+					})//接完題目
+					
+					function getanswer(theanswer){  //送出answer
+						theanswer = theanswer.textContent						
+						sock.emit("answer",{answer:theanswer,token:token})
+						
+						sock.on('result', (data) =>{
+							if(data.correct === true){
+								document.getElementById("myscore").textContent = data.score
+							}
+						})
+						sock.on('otheranswer', (data) =>{
+							if(data.correct === true){
+								document.getElementById("otherscore").textContent = data.score
+							}
+						})
+						
+					}	
+					
+					/*結束畫面*/
+					
+				   sock.on('halt', (data) =>{  //結束畫面 mainend
+					   document.getElementById("mainwaiting").style = "display:none"
+					   document.getElementById("main").style = "display:none"
+					   document.getElementById("mainend").style = ""
+						if(data.win === true){
+							document.getElementById("halt").textContent = "恭喜你贏了!!!"
+							document.getElementById("haltrank").textContent = data.ranking
+						}
+						else{//data.win ===false
+							document.getElementById("halt").textContent = "輸了沒關係，再接再厲"
+							document.getElementById("haltrank").textContent = data.ranking
+						}
+					})
+					sock.on('offline', (data) =>{
+						location.href = "/index.html"
+					})
+					
+				})
+			
 			</script>
-		<script src="assets/js/ingame.js"></script>
 	</body>
 </html>
