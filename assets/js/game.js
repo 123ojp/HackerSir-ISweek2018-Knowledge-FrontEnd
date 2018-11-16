@@ -5,6 +5,7 @@ var use_bot = localStorage.getItem("use_bot");
 var sock =  io.connect(host,{transports: ['websocket'], upgrade: false})
 var player;
 
+
 //區塊隱藏
 $("#q_box").hide()
 $("#score").hide()
@@ -18,7 +19,12 @@ sock.on('hello', (data) => {
     token:token
   })
 })
-
+// 結算
+function finish_show(){
+  $("#main").hide()
+  $(".q_box").hide()
+  $("#mainend").show()
+}
 
 //找到隊友
 sock.on('start', (data) => {
@@ -27,31 +33,71 @@ sock.on('start', (data) => {
   $("#show_player").show()
   $("#score").show()
   $("#h1_bar").hide()
-  $("#player_id") = data.opponent_name //對手名
-  sock.emit('getProblem')
+  $("#player_id").html("對手 : "+data.opponent_name) //對手名
+  sock.emit('getProblem',{
+    token:token
+  })
 })
 //拿到題目
 sock.on('getProblem', (data) => {
   $(".q_box").show()
-  $("#question_h1").html(data.problem.question)
-  $("#S0").html(data.problem.answers[0])
-  $("#S1").html(data.problem.answers[1])
-  $("#S2").html(data.problem.answers[2])
-  $("#S3").html(data.problem.answers[3])
+  $("#question_h1").html(data.question)
+  $("#S0").html(data.answers[0])
+  $("#S1").html(data.answers[1])
+  $("#S2").html(data.answers[2])
+  $("#S3").html(data.answers[3])
+  $("#option").on("click", function(e) {
+      console.log("Send anwser");
+      var target = e.target;
+      if (target.tagName.toUpperCase() === "A") {
+          $("#option").off("click");
+          sock.emit("answer", {
+              token: token,
+              answer: target.textContent
+          });
+      }
+  });
+
 })
 //別人回答
 sock.on('otheranswer', (data) => {
   if (data.correct){
-    alertify.log('對方答對了');
+    alertify.success('對方答對了');
   } else {
-    alertify.log('對方答錯了');
+    alertify.error('對方答錯了');
   }
   $("#otherscore").html(data.score)
 })
 
 //對方斷線
 sock.on('offline', (data) => {
+  alertify.success('恭喜你獲勝<br>對方斷線');
+  $("#haltrank").html(data.ranking)
+  finish_show()
+})
 
+//回收答案
+sock.on('answer', (data) => {
+  $("#halt").html(data.score)
+  $("#myscore").html(data.score)
+  if (data.correct) {
+    alertify.success('答對了');
+  } else {
+    alertify.error('答錯了');
+  }
+  sock.emit('getProblem',{
+    token:token
+  })
+})
+//結束
+sock.on('halt', (data) => {
+  if (data.win){
+    alertify.success('恭喜你獲勝');
+  } else {
+    alertify.error('你輸了qq');
+  }
+  $("#haltrank").html(data.ranking)
+  finish_show()
 })
 
 $("#cancel").on("click", function() {
@@ -65,63 +111,6 @@ sock.on('cancel', (data) => {
     location.href = "/";
   }
 })
+$(function(){
 
-  //
-  // /*遊戲畫面*/
-  //
-  // document.getElementById("mainwaiting").style = "display:none"
-  // document.getElementById("main").style = ""
-  // document.getElementById("mainend").style = "display:none"
-  //
-  // var data = document.querySelector('[name=question]').value
-  // sock.emit("getProblem", {
-  //   token: token
-  // })
-  //
-  // sock.on('result', (data) => {
-  //
-  //   if (data.to === "getProblem") { //確認接到的回覆是哪個問題的
-  //     document.getElementById("question").textContent = data.question //題目
-  //     for (var i = 0; i < 4; i++) {
-  //       document.getElementsByName("S" + i).textContent = data.answers[i] //陣列接選項
-  //     }
-  //   }
-  // }) //接完題目
-  //
-  // function getanswer(theanswer) { //送出answer
-  //   theanswer = theanswer.textContent
-  //   sock.emit("answer", {
-  //     answer: theanswer,
-  //     token: token
-  //   })
-  //
-  //   sock.on('result', (data) => {
-  //     if (data.correct === true) {
-  //       document.getElementById("myscore").textContent = data.score
-  //     }
-  //   })
-  //   sock.on('otheranswer', (data) => {
-  //     if (data.correct === true) {
-  //       document.getElementById("otherscore").textContent = data.score
-  //     }
-  //   })
-  //
-  // }
-  //
-  // /*結束畫面*/
-  //
-  // sock.on('halt', (data) => { //結束畫面 mainend
-  //   document.getElementById("mainwaiting").style = "display:none"
-  //   document.getElementById("main").style = "display:none"
-  //   document.getElementById("mainend").style = ""
-  //   if (data.win === true) {
-  //     document.getElementById("halt").textContent = "恭喜你贏了!!!"
-  //     document.getElementById("haltrank").textContent = data.ranking
-  //   } else { //data.win ===false
-  //     document.getElementById("halt").textContent = "輸了沒關係，再接再厲"
-  //     document.getElementById("haltrank").textContent = data.ranking
-  //   }
-  // })
-  // sock.on('offline', (data) => {
-  //   location.href = "/index.html"
-  // })
+})
