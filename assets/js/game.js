@@ -7,7 +7,7 @@ var player;
 
 
 //區塊隱藏
-$("#q_box").hide()
+$(".q_box").hide()
 $("#score").hide()
 $("#show_player").hide()
 sock.on('connect', function() {
@@ -15,6 +15,7 @@ sock.on('connect', function() {
 })
 
 sock.on('hello', (data) => {
+  $("#h1_bar").html("找尋對手中")
   sock.emit('start',{
     token:token
   })
