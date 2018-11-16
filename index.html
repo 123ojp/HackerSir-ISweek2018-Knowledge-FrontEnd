@@ -1,80 +1,99 @@
 <!DOCTYPE HTML>
-
 <html>
-	<head>
-		<title>Knowledge of Hacker</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-		<script src="assets/js/login.js"></script>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-						integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  					crossorigin="anonymous">
-		</script>
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
+
+<head>
+	<title>Knowledge of Hacker</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<!-- alertify -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css"/>
+	<!-- Default theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/default.min.css"/>
+	<!-- Semantic UI theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/semantic.min.css"/>
+	<!-- Bootstrap theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/bootstrap.min.css"/>
+
+	<!--
+	    RTL version
+	-->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.rtl.min.css"/>
+	<!-- Default theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/default.rtl.min.css"/>
+	<!-- Semantic UI theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/semantic.rtl.min.css"/>
+	<!-- Bootstrap theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/bootstrap.rtl.min.css"/>	<noscript>
+	<!-- alertify  end -->
+		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+
 	<body class="is-preload">
-
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Main -->
-					<section id="main">
-						<header>
-							<span class="avatar"><img src="images/Mrblack.png" alt="" /></span>
-							<h1>黑客知識王</h1>
-							<p>Knowledge of Hacker</p>
-						</header>
-
-						<hr />
-						<h2>~~請先註冊~~</h2>
-						<form method="post" action="#">
-							<div class="fields">
-								<div class="field">
-									<input type="text" id="nid" placeholder="Name" />
-								</div>
-							</div>
-							<ul class="actions special">
-								<li><a id="sid" class="button">送出學號</a></li>
-							</ul>
-
-						</form>
-
-						<form style="display:none" method="post" id="nickname"  action="#">
-							<div class="fields">
-								<div class="field">
-									<input type="text" name="nickname" id="nickname" placeholder="nickname" />
-								</div>
-							</div>
-							<ul class="actions special">
-								<li><a id="start" class="button" onClick="function(startgame)" >Started</a></li>
-							</ul>
-
-						</form>
-
-						<hr />
-
-						<footer>
-							<ul class="actions special">
-								<li><a href="rule.html" class="button">Rulebook</a></li>
-								<li><a href="About.html" class="button">About Hackersir</a></li>
-							</ul>
-							<ul class="icons">
-								<li><a href="#" class="fa-twitter">Twitter</a></li>
-								<li><a href="#" class="fa-instagram">Instagram</a></li>
-								<li><a href="#" class="fa-facebook">Facebook</a></li>
-							</ul>
-						</footer>
-					</section>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<ul class="copyright">
-							<li>&copy; Design: <a href="http://html5up.net">html5up</a></li>
-						</ul>
-					</footer>
-
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<!-- Main -->
+		<section id="main">
+			<header>
+				<span class="avatar"><img src="images/Mrblack.png" alt="" /></span>
+				<h1>黑客知識王</h1>
+				<p>Knowledge of Hacker</p>
+			</header>
+			<hr>
+			<h2 id="title">~~請先註冊~~</h2>
+			<div>
+				<div class="fields">
+					<div class="field">
+						<input type="text" id="nid" placeholder="Name" />
+					</div>
+				</div>
+				<br>
+				<ul class="actions special">
+					<li><a id="sid" class="button">送出學號</a></li>
+				</ul>
 			</div>
-	</body>
+			<div style="display:none" id="nickform">
+				<div class="fields">
+					<div class="field">
+						<input type="text" id="nickname" placeholder="nickname" />
+					</div>
+				</div>
+				<br>
+				<ul class="actions special">
+					<li><a id="start" class="button">Started</a></li>
+				</ul>
+			</div>
+			<hr>
+			<footer>
+				<ul class="actions special">
+					<li><a href="rule.html" class="button">Rulebook</a></li>
+					<li><a href="About.html" class="button">About Hackersir</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="#" class="fa-twitter">Twitter</a></li>
+					<li><a href="#" class="fa-instagram">Instagram</a></li>
+					<li><a href="#" class="fa-facebook">Facebook</a></li>
+				</ul>
+			</footer>
+		</section>
+		<!-- Footer -->
+		<footer id="footer">
+			<ul class="copyright">
+				<li>&copy; Design: <a href="http://html5up.net">html5up</a></li>
+			</ul>
+		</footer>
+	</div>
+	<script src="assets/js/login.js"></script>
+	<script>
+	//動畫
+	window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+	document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+	</script>
+</body>
+
 </html>
