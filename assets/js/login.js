@@ -47,6 +47,7 @@ $("#sid").on("click", function() {
 sock.on('login', (data) => {
         if (!data.ok) { //if 登入失敗
             alertify.error('登入失敗<br>'+data.mesg);
+            return
         }
         if (!data.registered) { //要 setName
             $("#nidform").hide();
