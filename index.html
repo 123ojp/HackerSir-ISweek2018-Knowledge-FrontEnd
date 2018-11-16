@@ -6,6 +6,8 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<!-- alertify -->
@@ -45,29 +47,40 @@
 				<p>Knowledge of Hacker</p>
 			</header>
 			<hr>
-			<h2 id="title">~~請先註冊~~</h2>
-			<div>
+			<h2 id="title">請先註冊</h2>
+			<div id="nidform">
 				<div class="fields">
 					<div class="field">
 						<input type="text" id="nid" placeholder="Name" />
 					</div>
 				</div>
 				<br>
+				<div class="pretty p-default p-curve">
+	        <input type="checkbox" id="use_bot" />
+	        <div class="state">
+	            <label>是否與bot遊戲</label>
+			     </div>
+		    </div>
+				<br>
+				<br>
 				<ul class="actions special">
-					<li><a id="sid" class="button">送出學號</a></li>
+					<li><button id="sid" class="button" disabled>送出學號</button></li>
 				</ul>
 			</div>
-			<div style="display:none" id="nickform">
+
+			<div id="nickform">
 				<div class="fields">
 					<div class="field">
 						<input type="text" id="nickname" placeholder="nickname" />
+
 					</div>
 				</div>
 				<br>
 				<ul class="actions special">
-					<li><a id="start" class="button">Started</a></li>
+					<li><button id="start" class="button" disabled>Started</button></li>
 				</ul>
 			</div>
+
 			<hr>
 			<footer>
 				<ul class="actions special">
@@ -75,7 +88,7 @@
 					<li><a href="About.html" class="button">About Hackersir</a></li>
 				</ul>
 				<ul class="icons">
-					<li><a href="#" class="fa-twitter">Twitter</a></li>
+					<!--<li><a href="#" class="fa-twitter">Twitter</a></li>-->
 					<li><a href="#" class="fa-instagram">Instagram</a></li>
 					<li><a href="#" class="fa-facebook">Facebook</a></li>
 				</ul>
@@ -85,9 +98,11 @@
 		<footer id="footer">
 			<ul class="copyright">
 				<li>&copy; Design: <a href="http://html5up.net">html5up</a></li>
+				<li>&copy; Game: <a href="http://hackersir.org">FCU Hackersir</a></li>
 			</ul>
 		</footer>
 	</div>
+	<script src="assets/js/config.js"></script>
 	<script src="assets/js/login.js"></script>
 	<script>
 	//動畫
