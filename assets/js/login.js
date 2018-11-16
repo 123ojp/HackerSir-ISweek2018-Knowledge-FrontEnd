@@ -27,10 +27,6 @@ sock.on("connect", function() {
 });
 //送出學號
 $("#sid").on("click", function() {
-    if(localStorage.getItem("token")!=null && localStorage.getItem("token")!="undefined"){
-      playGame()
-      return
-    }
     var data = $('#nid').val() //data 接
     var reS = /^[demp]{1}[0-9]{7}$/i;
     var reT = /^[t]{1}[0-9]{5}$/i;
@@ -49,7 +45,6 @@ $("#sid").on("click", function() {
     }
 });
 sock.on('login', (data) => {
-  alertify.error("請輸入NID。");
         if (!data.ok) { //if 登入失敗
             alertify.error('登入失敗<br>'+data.mesg);
         }
@@ -60,6 +55,7 @@ sock.on('login', (data) => {
             localStorage.setItem("token", data.token);
         }
         else { //不用setName
+          localStorage.setItem("token", data.token);
           playGame();
         }
 
