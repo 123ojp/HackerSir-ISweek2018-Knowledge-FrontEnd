@@ -1,7 +1,9 @@
 .score_div_error{
+    border-radius:10px;
     animation:error 1s infinite ; /*IE*/
 }
 .score_div_right{
+    border-radius:10px;
     animation:right 1s infinite ; /*IE*/
 }
 @keyframes error{
