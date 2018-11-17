@@ -4,7 +4,31 @@ var token = localStorage.getItem("token"); //把localStorage的東西拉回來
 var use_bot = localStorage.getItem("use_bot");
 var sock =  io.connect(host,{transports: ['websocket'], upgrade: false})
 var player;
-
+//答對變色
+function other_error(){
+  $("#other_score_div").addClass("score_div_error").delay(1000).queue(function(next){
+      $(this).removeClass("score_div_error");
+      next();
+  });
+}
+function other_right(){
+  $("#other_score_div").addClass("score_div_right").delay(1000).queue(function(next){
+      $(this).removeClass("score_div_right");
+      next();
+  });
+}
+function you_error(){
+  $("#self_score_div").addClass("score_div_error").delay(1000).queue(function(next){
+      $(this).removeClass("score_div_error");
+      next();
+  });
+}
+function you_right(){
+  $("#self_score_div").addClass("score_div_right").delay(1000).queue(function(next){
+      $(this).removeClass("score_div_right");
+      next();
+  });
+}
 
 //區塊隱藏
 $(".q_box").hide()
@@ -29,6 +53,15 @@ function finish_show(){
 
 //找到隊友
 sock.on('start', (data) => {
+  if (data.ok==false) {
+    alertify.confirm('遊戲產生錯誤，是否回到首頁重新登入？', function (e) {
+      if (e) {
+        location.href = "/";
+      } else {
+        location.reload();
+      }
+    });
+  }
   $("#h1_bar").html("等待題目")
   $("#loading_box").hide()
   $("#show_player").show()
@@ -63,9 +96,9 @@ sock.on('getProblem', (data) => {
 //別人回答
 sock.on('otheranswer', (data) => {
   if (data.correct){
-    alertify.success('對方答對了');
+    other_right();
   } else {
-    alertify.error('對方答錯了');
+    other_error();
   }
   $("#otherscore").html(data.score)
 })
@@ -83,8 +116,10 @@ sock.on('answer', (data) => {
   $("#myscore").html(data.score)
   if (data.correct) {
     alertify.success('答對了');
+    you_right();
   } else {
     alertify.error('答錯了');
+    you_error();
   }
   sock.emit('getProblem',{
     token:token

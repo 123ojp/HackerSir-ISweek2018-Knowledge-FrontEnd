@@ -1,0 +1,16 @@
+.score_div_error{
+    animation:error 1s infinite ; /*IE*/
+}
+.score_div_right{
+    animation:right 1s infinite ; /*IE*/
+}
+@keyframes error{
+    0%  {background-color:#ffffff;}
+    30%  {background-color:rgba(255, 97, 71, 0.73);}
+
+}
+@keyframes right{
+    0%  {background-color:#ffffff;}
+    30%  {background-color:#8edc9d;}
+
+}
