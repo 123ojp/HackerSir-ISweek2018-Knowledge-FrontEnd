@@ -8,7 +8,7 @@ function changeColor(who, correct) {
     var scoreDiv = $(`#${who}_score_div`);
     var newClassName = `score_div_${correct}`;
     scoreDiv.addClass(newClassName).delay(1000).queue(next => {
-        $(scoreDiv).removeClass(newClassName);
+        scoreDiv.removeClass(newClassName);
         next();
     });
 }
