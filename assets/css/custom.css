@@ -1,14 +1,15 @@
 .score_div {
     border-radius: 10px;
-    animation-direction: alternate;
 }
 
 .score_div_error {
     animation: error 0.5s 2; /*IE*/
+    animation-direction: alternate;
 }
 
 .score_div_right {
     animation: right 0.5s 2; /*IE*/
+    animation-direction: alternate;
 }
 
 @keyframes error {
