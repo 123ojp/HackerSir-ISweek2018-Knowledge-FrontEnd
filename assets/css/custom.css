@@ -1,18 +1,16 @@
-.score_div_error{
-    border-radius:10px;
-    animation:error 1s infinite ; /*IE*/
+.score_div_error {
+    border-radius: 10px;
+    animation: error 1s infinite; /*IE*/
 }
-.score_div_right{
-    border-radius:10px;
-    animation:right 1s infinite ; /*IE*/
+.score_div_right {
+    border-radius: 10px;
+    animation: right 1s infinite; /*IE*/
 }
-@keyframes error{
-    0%  {background-color:#ffffff;}
-    30%  {background-color:rgba(255, 97, 71, 0.73);}
-
+@keyframes error {
+    0% {background-color: #ffffff;}
+    30% {background-color: rgba(255, 97, 71, 0.73);}
 }
-@keyframes right{
-    0%  {background-color:#ffffff;}
-    30%  {background-color:#8edc9d;}
-
+@keyframes right {
+    0%{background-color:#ffffff;}
+    30%{background-color:#8edc9d;}
 }
