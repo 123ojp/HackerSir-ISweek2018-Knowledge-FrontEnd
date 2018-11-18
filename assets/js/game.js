@@ -39,7 +39,7 @@ function finish_show() {
     $("#mainend").show();
 }
 
-sock.on("connect", () {
+sock.on("connect", () => {
 
 });
 
