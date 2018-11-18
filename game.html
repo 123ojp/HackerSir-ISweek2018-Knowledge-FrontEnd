@@ -1,126 +1,111 @@
 <!DOCTYPE HTML>
-
 <html>
-
 <head>
-	<title>Knowledge of Hacker</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="stylesheet" href="assets/css/custom.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<!-- alertify -->
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
-
-	<!-- CSS -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css"/>
-	<!-- Default theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/default.min.css"/>
-	<!-- Semantic UI theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/semantic.min.css"/>
-	<!-- Bootstrap theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/bootstrap.min.css"/>
-
-	<!-- alertify  end -->
-		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <title>Knowledge of Hacker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- alertify -->
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css">
+    <!-- Default theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/default.min.css">
+    <!-- alertify  end -->
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
 </head>
-
 <body class="is-preload">
-
-	<!-- Wrapper -->
-	<div id="wrapper">
-		<!--waiting-->
-		<section id="main">
-			<header>
-				<span id="show_player">
-				<h2 id="player_id"></h2>
-				</span>
-							<!--分數-->
-				<div id="score" class="score">
-				<div id="self_score_div" class="score_div" style="float:left;width:49%;"><h2>My Score</h2><h2 id="myscore">0</h2></div>
-				<div id="other_score_div" class="score_div" style="float:right;width:49%;"><h2>Other Score</h2><h2 id="otherscore">0</h2></div>
-			</div>
-				<h1 id="h1_bar">正在連線到伺服器</h1>
-
-
-
-				<!--題目-->
-
-			</header>
-			<div id="loading_box">
-			<div class="vbox">
-				<div data-loader="ball-rotate"></div>
-			</div>
-			<a class="button" id="cancel">cancel</a>
-				</div>
-		</section>
-      <br>
-		<!-- Ingame -->
-		<section id="main" class="q_box" >
-			<h1 id="question_h1"></h1>
-			<hr />
-			<form method="post" action="#" id="option">
-
-				<ul class="actions special">
-					<li><a id="S0" class="button">1.</a></li>
-					<!--ANS 1-->
-				</ul>
-				<ul class="actions special">
-					<li><a id="S1" class="button">2.</a></li>
-					<!--ANS 2-->
-				</ul>
-				<ul class="actions special">
-					<li><a id="S2" class="button">3.</a></li>
-					<!--ANS 3-->
-				</ul>
-				<ul class="actions special">
-					<li><a id="S3" class="button">4.</a></li>
-					<!--ANS 4-->
-				</ul>
-			</form>
-			<hr />
-		</section>
-		<!--成績結算-->
-		<section style="display:none" id="mainend">
-			<header>
-				<h1 name="question">成績結算</h1>
-				<!--題目-->
-
-
-
-				<h1 id="halt">Server error</h1>
-			<hr />
-				<h1>Rank</h1>
-
-				<h1 id="haltrank">Server error</h1>
-		</header>
-		<ul class="actions special">
-			<li><a href="game.html" class="button">再來一局</a></li>
-		</ul>
-		<ul class="actions special">
-			<li><a href="/" class="button">回首頁</a></li>
-		</ul>
-		</section>
-
-		<!-- Footer -->
-		<footer id="footer">
-			<ul class="copyright">
-				<li>&copy; Design: <a href="http://html5up.net">html5up</a></li>
-				<li>&copy; Game: <a href="http://hackersir.org">FCU Hackersir</a></li>
-			</ul>
-		</footer>
-
-	</div>
-
-	<!-- Scripts -->
-	<script src="assets/js/config.js"></script>
-	<script src="assets/js/game.js"></script>
-	<script>
-	//動畫
-	window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
-	document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
-	</script>
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!--waiting-->
+        <section id="main">
+            <header>
+                <span id="show_player">
+                <h2 id="player_id"></h2>
+            </span>
+            <!--分數-->
+            <div id="score" class="score">
+                <div id="self_score_div" class="score_div" style="float:left;width:49%;">
+                    <h2>My Score</h2>
+                    <h2 id="myscore">0</h2>
+                </div>
+                <div id="other_score_div" class="score_div" style="float:right;width:49%;">
+                    <h2>Other Score</h2>
+                    <h2 id="otherscore">0</h2>
+                </div>
+            </div>
+            <h1 id="h1_bar">正在連線到伺服器</h1>
+            <!--題目-->
+            </header>
+            <div id="loading_box">
+                <div class="vbox">
+                    <div data-loader="ball-rotate"></div>
+                </div>
+                <a class="button" id="cancel">cancel</a>
+            </div>
+        </section>
+        <br>
+        <!-- Ingame -->
+        <section id="main" class="q_box" >
+            <h1 id="question_h1"></h1>
+            <hr>
+            <form method="post" action="#" id="option">
+                <ul class="actions special">
+                    <li><a id="S0" class="button">1.</a></li>
+                    <!--ANS 1-->
+                </ul>
+                <ul class="actions special">
+                    <li><a id="S1" class="button">2.</a></li>
+                    <!--ANS 2-->
+                </ul>
+                <ul class="actions special">
+                    <li><a id="S2" class="button">3.</a></li>
+                    <!--ANS 3-->
+                </ul>
+                <ul class="actions special">
+                    <li><a id="S3" class="button">4.</a></li>
+                    <!--ANS 4-->
+                </ul>
+            </form>
+            <hr />
+        </section>
+        <!--成績結算-->
+        <section style="display:none" id="mainend">
+            <header>
+                <h1 name="question">成績結算</h1>
+                <!--題目-->
+                <h1 id="halt">Server error</h1>
+                <hr />
+                <h1>Rank</h1>
+                <h1 id="haltrank">Server error</h1>
+            </header>
+            <ul class="actions special">
+                <li><a href="game.html" class="button">再來一局</a></li>
+            </ul>
+            <ul class="actions special">
+                <li><a href="/" class="button">回首頁</a></li>
+            </ul>
+        </section>
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="copyright">
+                <li>&copy; Design: <a href="http://html5up.net">html5up</a></li>
+                <li>&copy; Game: <a href="http://hackersir.org">FCU Hackersir</a></li>
+            </ul>
+        </footer>
+    </div>
+    <!-- Scripts -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/game.js"></script>
+    <script>
+        <!-- 動畫 -->
+        window.addEventListener("load", () => {
+            document.body.className = document.body.className.replace(/\bis-preload\b/, "");
+        });
+        document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? " is-ie" : "");
+    </script>
 </body>
-
 </html>

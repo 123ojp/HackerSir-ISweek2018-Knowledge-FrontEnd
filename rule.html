@@ -1,55 +1,48 @@
 <!DOCTYPE HTML>
-
 <html>
-	<head>
-		<title>Rulebook</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
-
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Main -->
-					<section id="main">
-						<header>
-							<span class="avatar"><img src="images/Mrblack.png" alt="" /></span>
-							<h1>遊戲規則</h1>
-							<p>Rulebook</p>
-						</header>
-						
-						<hr />
-						<h2>~~遊戲規則~~</h2>
-						<p>每題四個選項</p>
-						<p>一場遊戲五題</p>
-						<p>每題各一千分</p>
-						<p>依答題速度進行分數加權</p>
-						<p>每贏一場積分加五十分</p>	
-						<hr />
-						<ul class="actions special">
-							<li><a href="index.html" class="button">Back</a></li><!--ANS 1-->
-						</ul>
-					</section>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<ul class="copyright">
-							<li>&copy; Design: <a href="http://html5up.net">FCU Hackersir</a></li>
-						</ul>
-					</footer>
-
-			</div>
-
-		<!-- Scripts -->
-			<script>
-				if ('addEventListener' in window) {
-					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
-					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
-				}
-			</script>
-
-	</body>
+<head>
+    <title>Rulebook</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
+</head>
+<body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Main -->
+        <section id="main">
+            <header>
+                <span class="avatar"><img src="images/Mrblack.png" alt=""></span>
+                <h1>遊戲規則</h1>
+                <p>Rulebook</p>
+            </header>
+            <hr>
+            <h2>遊戲規則</h2>
+            <p>每題四個選項</p>
+            <p>一場遊戲五題</p>
+            <p>每題各一千分</p>
+            <p>依答題速度進行分數加權</p>
+            <p>每贏一場積分加五十分</p>
+            <hr>
+            <ul class="actions special">
+                <li><a href="index.html" class="button">Back</a></li><!--ANS 1-->
+            </ul>
+        </section>
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="copyright">
+                <li>&copy; Design: <a href="http://html5up.net">FCU Hackersir</a></li>
+            </ul>
+        </footer>
+    </div>
+    <!-- Scripts -->
+    <script>
+        <!-- 動畫 -->
+        window.addEventListener("load", () => {
+            document.body.className = document.body.className.replace(/\bis-preload\b/, "");
+        });
+        document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? " is-ie" : "");
+    </script>
+</body>
 </html>
