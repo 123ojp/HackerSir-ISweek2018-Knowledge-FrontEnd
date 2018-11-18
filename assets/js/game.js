@@ -4,30 +4,11 @@ var use_bot = localStorage.getItem("use_bot");
 var sock = io.connect(host, {transports: ["websocket"], upgrade: false});
 var player;
 //答對變色
-function other_error() {
-    $("#other_score_div").addClass("score_div_error").delay(1000).queue(function(next) {
-        $(this).removeClass("score_div_error");
-        next();
-    });
-}
-
-function other_right(){
-    $("#other_score_div").addClass("score_div_right").delay(1000).queue(function(next) {
-        $(this).removeClass("score_div_right");
-        next();
-    });
-}
-
-function you_error(){
-    $("#self_score_div").addClass("score_div_error").delay(1000).queue(function(next) {
-        $(this).removeClass("score_div_error");
-        next();
-    });
-}
-
-function you_right() {
-    $("#self_score_div").addClass("score_div_right").delay(1000).queue(function(next) {
-        $(this).removeClass("score_div_right");
+function changeColor(who, correct) {
+    var scoreDiv = $(`#${who}_score_div`);
+    var newClassName = `score_div_${correct}`;
+    scoreDiv.addClass(newClassName).delay(1000).queue(next => {
+        $(scoreDiv).removeClass(newClassName);
         next();
     });
 }
@@ -76,10 +57,9 @@ sock.on("start", data => {
 sock.on("getProblem", data => {
     $(".q_box").show();
     $("#question_h1").text(data.question);
-    $("#S0").text(data.answers[0]);
-    $("#S1").text(data.answers[1]);
-    $("#S2").text(data.answers[2]);
-    $("#S3").text(data.answers[3]);
+    $(".problem").each((i, e) => {
+        $(e).text(data.answers[i]);
+    });
     $("#option").on("click", e => {
         var target = e.target;
         if (target.tagName.toUpperCase() === "A") {
@@ -94,10 +74,10 @@ sock.on("getProblem", data => {
 //別人回答
 sock.on("otheranswer", data => {
     if (data.correct) {
-        other_right();
+        changeColor("other", "right");
     }
     else {
-        other_error();
+        changeColor("other", "error");
     }
     $("#otherscore").text(data.score);
 });
@@ -115,11 +95,11 @@ sock.on("answer", data => {
     $("#myscore").text(data.score);
     if (data.correct) {
         alertify.success("答對了");
-        you_right();
+        changeColor("self", "right");
     }
     else {
         alertify.error("答錯了");
-        you_error();
+        changeColor("self", "error");
     }
     sock.emit("getProblem", {
         token: token

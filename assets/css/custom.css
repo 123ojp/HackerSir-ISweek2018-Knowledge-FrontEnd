@@ -1,16 +1,30 @@
+.score_div {
+    border-radius: 10px;
+    animation-direction: alternate;
+}
+
 .score_div_error {
-    border-radius: 10px;
-    animation: error 1s infinite; /*IE*/
+    animation: error 0.5s 2; /*IE*/
 }
+
 .score_div_right {
-    border-radius: 10px;
-    animation: right 1s infinite; /*IE*/
+    animation: right 0.5s 2; /*IE*/
 }
+
 @keyframes error {
-    0% {background-color: #ffffff;}
-    30% {background-color: rgba(255, 97, 71, 0.73);}
+    from {
+        background-color: #ffffff;
+    }
+    to {
+        background-color: rgba(217, 92, 92, .95);
+    }
 }
+
 @keyframes right {
-    0%{background-color:#ffffff;}
-    30%{background-color:#8edc9d;}
+    from {
+        background-color: #ffffff;
+    }
+    to {
+        background-color: rgba(91,189,114,.95);
+    }
 }
