@@ -159,7 +159,7 @@ sock.on("halt", data => {
 
 sock.on("cancel", data => {
     if(data.cancelled) {
-        alertify.log("成功取消");
+        alertify.success("成功取消");
         location.href = "/";
     }
 })
