@@ -3,6 +3,7 @@ var token = localStorage.getItem("token"); //把localStorage的東西拉回來
 var use_bot = localStorage.getItem("use_bot");
 var sock = io.connect(host, {transports: ["websocket"], upgrade: false});
 var player;
+var getProblemFlag = false;
 //答對變色
 function changeColor(who, correct) {
     var scoreDiv = $(`#${who}_score_div`);
@@ -14,10 +15,21 @@ function changeColor(who, correct) {
 }
 
 function getnext() {
-  alert(1);
-  sock.emit("getProblem", {
-      token: token
-  });
+  getProblemFlag = false;
+  setTimeout(function(){
+  var re_get_problem = setInterval(
+    function(){
+      if (getProblemFlag){
+        clearInterval(re_get_problem);
+      } else {
+	  sock.emit("getProblem", {
+             token: token
+          });
+      }
+
+    }
+  ,1000);
+},5000);
 }
 function timmer_start() {
   $("#timmer").show();
@@ -92,6 +104,7 @@ sock.on("getProblem", data => {
     if (!data.ok) {
       alertify.error(`取得題目失敗<br>${data.mesg}`);
     } else {
+      getProblemFlag = true
       timmer_start();
       $(".q_box").show();
       $("#question_h1").text(data.question);
@@ -154,6 +167,8 @@ sock.on("halt", data => {
     else {
         alertify.error("你輸了qq");
     }
+    getProblemFlag = true;
+
     $("#haltrank").text(data.ranking);
     finish_show();
 })
