@@ -47,7 +47,8 @@ sock.on("connect", () => {
 sock.on("hello", data => {
     $("#h1_bar").text("找尋對手中");
     sock.emit("start",{
-        token: token
+        token: token,
+        use_bot: use_bot
     });
 });
 
