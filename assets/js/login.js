@@ -96,6 +96,8 @@ $(() => {
     if (token != null && token != "undefined") {
         playGame();
     }
+    var use_bot = localStorage.getItem("use_bot")==="false" ? false : true;
+    $("#use_bot").prop("checked",use_bot);
 });
 
 /*
