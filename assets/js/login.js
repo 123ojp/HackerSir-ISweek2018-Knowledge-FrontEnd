@@ -5,11 +5,6 @@ function playGame() {
   $("#nidform").hide();
   $("#nickform").hide();
   $("#gogame").show();
-    alertify.confirm("是否直接進入遊戲？<br>(若一直來回錯誤請按取消重新登入)", e => {
-        if (e) {
-            location.href = "/game.html";
-        }
-    });
 }
 
 sock.on("connect", () => {
