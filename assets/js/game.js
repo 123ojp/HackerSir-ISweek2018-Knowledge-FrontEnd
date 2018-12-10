@@ -13,6 +13,26 @@ function changeColor(who, correct) {
     });
 }
 
+function getnext() {
+  alert(1);
+  sock.emit("getProblem", {
+      token: token
+  });
+}
+function timmer_start() {
+  $("#timmer").show();
+  var pr_width = 100;
+  var count_down = setInterval(
+    function(){
+      $(".progress-bar").css( "width", pr_width+"%" );
+      pr_width-=1;
+      if (pr_width < 0){
+        clearInterval(count_down);
+      }
+    }
+  ,100);
+
+}
 // 結算
 function finish_show() {
     $("#main").hide();
@@ -31,46 +51,65 @@ sock.on("hello", data => {
     });
 });
 
+sock.on("break", data => {
+    if (!data.ok){
+      alertify.error("抱歉遊戲爆炸了<br>on break ok return false");
+    }
+    setTimeout(getnext(), 5000);
+    $(".problem").fadeOut(500);
+    $(".correct_answer_text").text(data.answer); //答案這裡要更新
+    $(".correct_answer").fadeIn(500);
+    $(".progress-bar").css( "width", "0%" );
+});
+
+
 //找到隊友
 sock.on("start", data => {
     if (!data.ok) {
         alertify.confirm("遊戲產生錯誤，是否回到首頁重新登入？", e => {
             if (e) {
-                localStorage.removeItem("token");
                 location.href = "/";
             }
             else {
                 location.reload();
             }
         });
+    } else {
+      $("#h1_bar").text("等待題目");
+      $("#loading_box").hide();
+      $("#show_player").show();
+      $("#score").show();
+      $("#h1_bar").hide();
+      $("#player_id").text(`對手 : ${data.opponent_name}`); //對手名
+      sock.emit("getProblem", {
+          token: token
+      });
     }
-    $("#h1_bar").text("等待題目");
-    $("#loading_box").hide();
-    $("#show_player").show();
-    $("#score").show();
-    $("#h1_bar").hide();
-    $("#player_id").text(`對手 : ${data.opponent_name}`); //對手名
-    sock.emit("getProblem", {
-        token: token
-    });
 });
 //拿到題目
 sock.on("getProblem", data => {
-    $(".q_box").show();
-    $("#question_h1").text(data.question);
-    $(".problem").each((i, e) => {
-        $(e).text(data.answers[i]);
-    });
-    $("#option").on("click", e => {
-        var target = e.target;
-        if (target.tagName.toUpperCase() === "A") {
-            $("#option").off("click");
-            sock.emit("answer", {
-            token: token,
-            answer: target.textContent
-            });
-        }
-    });
+    if (!data.ok) {
+      alertify.error(`取得題目失敗<br>${data.mesg}`);
+    } else {
+      timmer_start();
+      $(".q_box").show();
+      $("#question_h1").text(data.question);
+      $(".correct_answer").fadeOut(500);
+      $(".problem").fadeIn(500);
+      $(".problem").each((i, e) => {
+          $(e).text(data.answers[i]);
+      });
+      $("#option").on("click", e => {
+          var target = e.target;
+          if (target.tagName.toUpperCase() === "A") {
+              $("#option").off("click");
+              sock.emit("answer", {
+              token: token,
+              answer: target.textContent
+              });
+          }
+      });
+    }
 });
 //別人回答
 sock.on("otheranswer", data => {
@@ -102,9 +141,9 @@ sock.on("answer", data => {
         alertify.error("答錯了");
         changeColor("self", "error");
     }
-    sock.emit("getProblem", {
-        token: token
-    });
+    $(".problem").fadeOut(500);
+    $(".correct_answer_text").text(data.answer);
+    $(".correct_answer").fadeIn(500);
 })
 //結束
 sock.on("halt", data => {
@@ -127,6 +166,7 @@ sock.on("cancel", data => {
 
 $(() => {
     //區塊隱藏
+    $("#timmer").hide();
     $(".q_box").hide();
     $("#score").hide();
     $("#show_player").hide();

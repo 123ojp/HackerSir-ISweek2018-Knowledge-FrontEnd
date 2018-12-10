@@ -1,7 +1,11 @@
 var sock = io.connect(host, {transports: ["websocket"], upgrade: false});
 
 function playGame() {
-    alertify.confirm("是否直接進入遊戲？", e => {
+  $("#title").text("選單")
+  $("#nidform").hide();
+  $("#nickform").hide();
+  $("#gogame").show();
+    alertify.confirm("是否直接進入遊戲？<br>(若一直來回錯誤請按取消重新登入)", e => {
         if (e) {
             location.href = "/game.html";
         }
@@ -25,7 +29,6 @@ sock.on("login", data => {
             localStorage.setItem("token", data.token);
         }
         else { //不用setName
-          localStorage.setItem("token", data.token);
           playGame();
         }
 
@@ -42,6 +45,7 @@ sock.on("setName", data => {
 
 $(() => {
     var token = localStorage.getItem("token");
+    $("#gogame").hide();
     $("#nickform").hide();
     //使用bot listiner
     $("#use_bot").change(e => {
@@ -78,6 +82,14 @@ $(() => {
         })
         //把字改掉
         //  setName nickname token
+    });
+    $("#gstart").on("click", function() {
+      location.href = "/game.html";
+    });
+
+    $("#resettoken").on("click", function() {
+      localStorage.removeItem("token");
+      window.location.reload();
     });
     //如果已經有token
     if (token != null && token != "undefined") {

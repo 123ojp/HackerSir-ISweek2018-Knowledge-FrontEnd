@@ -3,6 +3,9 @@
 <head>
     <title>Knowledge of Hacker</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/custom.css">
@@ -26,6 +29,12 @@
                 <span id="show_player">
                 <h2 id="player_id"></h2>
             </span>
+            <div class="progress progress-striped active" id="timmer">
+              <div class="progress-bar progress-bar-success" role="progressbar"
+                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                 style="width: 100%;">
+              </div>
+            </div>
             <!--分數-->
             <div id="score" class="score">
                 <div id="self_score_div" class="score_div" style="float:left;width:49%;">
@@ -37,7 +46,7 @@
                     <h2 id="otherscore">0</h2>
                 </div>
             </div>
-            <h1 id="h1_bar">正在連線到伺服器</h1>
+              <h1 id="h1_bar">正在連線到伺服器</h1>
             <!--題目-->
             </header>
             <div id="loading_box">
@@ -48,26 +57,34 @@
             </div>
         </section>
         <br>
+
         <!-- Ingame -->
         <section id="main" class="q_box" >
             <h1 id="question_h1"></h1>
             <hr>
             <form method="post" action="#" id="option">
+                <!--ANS Real-->
+                <ul class="actions special correct_answer">
+                    <li>
+                      <h1>正確答案：</h1>
+                      <h1 class="correct_answer_text"></h1>
+                    </li>
+                </ul>
+                  <!--ANS 1-->
                 <ul class="actions special">
                     <li><a class="problem button">1.</a></li>
-                    <!--ANS 1-->
                 </ul>
+                  <!--ANS 2-->
                 <ul class="actions special">
                     <li><a class="problem button">2.</a></li>
-                    <!--ANS 2-->
                 </ul>
+                  <!--ANS 3-->
                 <ul class="actions special">
                     <li><a class="problem button">3.</a></li>
-                    <!--ANS 3-->
                 </ul>
+                  <!--ANS 4-->
                 <ul class="actions special">
                     <li><a class="problem button">4.</a></li>
-                    <!--ANS 4-->
                 </ul>
             </form>
             <hr />
