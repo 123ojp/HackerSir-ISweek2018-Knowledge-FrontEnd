@@ -30,6 +30,7 @@ sock.on("login", data => {
         }
         else { //不用setName
           playGame();
+          localStorage.setItem("token", data.token);
         }
 
 });
