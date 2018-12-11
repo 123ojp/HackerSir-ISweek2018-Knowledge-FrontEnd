@@ -113,16 +113,6 @@ sock.on("getProblem", data => {
       $(".problem").each((i, e) => {
           $(e).text(data.answers[i]);
       });
-      $("#option").on("click", e => {
-          var target = e.target;
-          if (target.tagName.toUpperCase() === "A") {
-              $("#option").off("click");
-              sock.emit("answer", {
-              token: token,
-              answer: target.textContent
-              });
-          }
-      });
     }
 });
 //別人回答
@@ -146,6 +136,9 @@ sock.on("offline", data => {
 
 //回收答案
 sock.on("answer", data => {
+    if (!data.ok){
+      return
+    }
     myScore += data.score;
     $("#halt").text(myScore);
     $("#myscore").text(myScore);
@@ -192,5 +185,14 @@ $(() => {
         sock.emit("cancel", {
             token: token
         });
+    });
+    $("#option").on("click", e => {
+        var target = e.target;
+        if (target.tagName.toUpperCase() === "A") {
+            sock.emit("answer", {
+              token: token,
+              answer: target.textContent
+            });
+        }
     });
 })
