@@ -117,13 +117,13 @@ sock.on("getProblem", data => {
 });
 //別人回答
 sock.on("otheranswer", data => {
-    if (data.res.correct) {
+    if (data.correct) {
         changeColor("other", "right");
     }
     else {
         changeColor("other", "error");
     }
-    otherScore += data.res.score;
+    otherScore += data.score;
     $("#otherscore").text(otherScore);
 });
 
