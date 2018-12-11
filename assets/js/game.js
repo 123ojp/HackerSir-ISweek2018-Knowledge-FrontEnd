@@ -4,6 +4,8 @@ var use_bot = localStorage.getItem("use_bot")==="false" ? false : true;
 var sock = io.connect(host, {transports: ["websocket"], upgrade: false});
 var player;
 var getProblemFlag = false;
+var myScore = 0;
+var otherScore = 0;
 //答對變色
 function changeColor(who, correct) {
     var scoreDiv = $(`#${who}_score_div`);
@@ -17,19 +19,18 @@ function changeColor(who, correct) {
 function getnext() {
   getProblemFlag = false;
   setTimeout(function(){
-  var re_get_problem = setInterval(
-    function(){
-      if (getProblemFlag){
-        clearInterval(re_get_problem);
-      } else {
-	  sock.emit("getProblem", {
-             token: token
-          });
+    var re_get_problem = setInterval(
+      function(){
+        if (getProblemFlag){
+          clearInterval(re_get_problem);
+        } else {
+  	  sock.emit("getProblem", {
+               token: token
+            });
+        }
       }
-
-    }
-  ,1000);
-},5000);
+    ,1000);
+  },5000);
 }
 function timmer_start() {
   $("#timmer").show();
@@ -43,7 +44,6 @@ function timmer_start() {
       }
     }
   ,100);
-
 }
 // 結算
 function finish_show() {
@@ -127,13 +127,14 @@ sock.on("getProblem", data => {
 });
 //別人回答
 sock.on("otheranswer", data => {
-    if (data.correct) {
+    if (data.res.correct) {
         changeColor("other", "right");
     }
     else {
         changeColor("other", "error");
     }
-    $("#otherscore").text(data.score);
+    otherScore += data.res.score;
+    $("#otherscore").text(otherScore);
 });
 
 //對方斷線
@@ -145,8 +146,9 @@ sock.on("offline", data => {
 
 //回收答案
 sock.on("answer", data => {
-    $("#halt").text(data.score);
-    $("#myscore").text(data.score);
+    myScore += data.score;
+    $("#halt").text(myScore);
+    $("#myscore").text(myScore);
     if (data.correct) {
         alertify.success("答對了");
         changeColor("self", "right");
