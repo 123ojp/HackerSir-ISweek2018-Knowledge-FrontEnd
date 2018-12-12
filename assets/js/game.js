@@ -6,6 +6,11 @@ var player;
 var getProblemFlag = false;
 var myScore = 0;
 var otherScore = 0;
+var q_ques = [];
+var q_ans = [];
+var q_det = [];
+var info_now = 0;
+var info_max = 0;
 //答對變色
 function changeColor(who, correct) {
     var scoreDiv = $(`#${who}_score_div`);
@@ -51,6 +56,17 @@ function finish_show() {
     $(".q_box").hide();
     $("#mainend").show();
 }
+function set_info_q(){
+  if (info_now == info_max){
+    $("#mainend").show();
+    $(".info").hide();
+  } else {
+    $("#info_question").text(q_ques[info_now]);
+    $("#info_answer").text(q_ans[info_now]);
+    $("#info_detail").text(q_det[info_now]);
+    info_now += 1;
+  }
+}
 
 sock.on("connect", () => {
 
@@ -68,8 +84,10 @@ sock.on("break", data => {
     if (!data.ok){
       alertify.error("抱歉遊戲爆炸了<br>on break ok return false");
     }
+    q_ans.push(data.answer)
+    q_det.push(data.detail)
     setTimeout(getnext(), 5000);
-    $(".problem").fadeOut(500);
+    $(".problem").hide();
     $(".correct_answer_text").text(data.answer); //答案這裡要更新
     $(".correct_answer").fadeIn(500);
     $(".progress-bar").css( "width", "0%" );
@@ -105,10 +123,11 @@ sock.on("getProblem", data => {
       alertify.error(`取得題目失敗<br>${data.mesg}`);
     } else {
       getProblemFlag = true
+      q_ques.push(data.question)
       timmer_start();
       $(".q_box").show();
       $("#question_h1").text(data.question);
-      $(".correct_answer").fadeOut(500);
+      $(".correct_answer").hide();
       $(".problem").fadeIn(500);
       $(".problem").each((i, e) => {
           $(e).text(data.answers[i]);
@@ -150,7 +169,7 @@ sock.on("answer", data => {
         alertify.error("答錯了");
         changeColor("self", "error");
     }
-    $(".problem").fadeOut(500);
+    $(".problem").hide();
     $(".correct_answer_text").text(data.answer);
     $(".correct_answer").fadeIn(500);
 })
@@ -195,4 +214,16 @@ $(() => {
             });
         }
     });
+    $("#info").on("click", function() {
+      $("#mainend").hide();
+      $(".info").show();
+      info_max = q_ques.length;
+      info_now = 0;
+      set_info_q();
+    });
+    $("#info_next").on("click", function() {
+      set_info_q();
+    });
+
+
 })
