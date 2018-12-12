@@ -99,6 +99,7 @@ sock.on("start", data => {
     if (!data.ok) {
         alertify.confirm("遊戲產生錯誤，是否回到首頁重新登入？", e => {
             if (e) {
+                localStorage.removeItem("token");
                 location.href = "/";
             }
             else {
