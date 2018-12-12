@@ -39,7 +39,7 @@ function getnext() {
 }
 function timmer_start() {
   $("#timmer").show();
-  var pr_width = 100;
+  var pr_width = 90;
   var count_down = setInterval(
     function(){
       $(".progress-bar").css( "width", pr_width+"%" );
