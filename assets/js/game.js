@@ -87,9 +87,6 @@ sock.on("break", data => {
     q_ans.push(data.answer)
     q_det.push(data.detail)
     setTimeout(getnext(), 5000);
-    setTimeout(function(){
-          $(".progress-bar").css( "width", "100%" );
-    }, 1000);
     $(".problem").hide();
     $(".correct_answer_text").text(data.answer); //答案這裡要更新
     $(".correct_answer").fadeIn(500);
@@ -126,9 +123,12 @@ sock.on("getProblem", data => {
     if (!data.ok) {
       alertify.error(`取得題目失敗<br>${data.mesg}`);
     } else {
+      $(".progress-bar").css( "width", "100%" );
       getProblemFlag = true
       q_ques.push(data.question)
-      timmer_start();
+      setTimeout(function(){
+           timmer_start();
+      },500);
       $(".q_box").show();
       $("#question_h1").text(data.question);
       $(".correct_answer").hide();
