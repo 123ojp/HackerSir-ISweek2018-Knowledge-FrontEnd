@@ -87,6 +87,9 @@ sock.on("break", data => {
     q_ans.push(data.answer)
     q_det.push(data.detail)
     setTimeout(getnext(), 5000);
+    setTimeout(function(){
+          $(".progress-bar").css( "width", "100%" );
+    }, 1000);
     $(".problem").hide();
     $(".correct_answer_text").text(data.answer); //答案這裡要更新
     $(".correct_answer").fadeIn(500);
