@@ -186,7 +186,7 @@ sock.on("halt", data => {
         alertify.error("你輸了qq");
     }
     getProblemFlag = true;
-
+    $("#halt").text(myScore);
     $("#haltrank").text(data.ranking);
     finish_show();
 })
