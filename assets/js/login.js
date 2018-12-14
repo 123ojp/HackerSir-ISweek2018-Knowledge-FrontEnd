@@ -54,7 +54,7 @@ $(() => {
         var reS = /^[demp]{1}[0-9]{7}$/i;
         var reT = /^[t]{1}[0-9]{5}$/i;
         if (!reS.test(nid) && !reT.test(nid)) {
-            alertify.error("NID格式錯誤，請重新輸入。");
+            alertify.error("NID格式錯誤<br>請重新輸入");
         }
         else if (nid === "") {
             alertify.error("請輸入NID。");

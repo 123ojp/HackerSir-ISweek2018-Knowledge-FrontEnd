@@ -154,6 +154,7 @@ sock.on("otheranswer", data => {
 sock.on("offline", data => {
     alertify.success("恭喜你獲勝<br>對方斷線");
     $("#haltrank").text(data.ranking);
+    $("#halt").text(myScore);
     finish_show();
 })
 
@@ -163,7 +164,6 @@ sock.on("answer", data => {
       return
     }
     myScore += data.score;
-    $("#halt").text(myScore);
     $("#myscore").text(myScore);
     if (data.correct) {
         alertify.success("答對了");
