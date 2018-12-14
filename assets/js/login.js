@@ -1,10 +1,10 @@
 var sock = io.connect(host, {transports: ["websocket"], upgrade: false});
 
 function playGame() {
-  $("#title").text("選單")
+  $("#title").text("選單");
   $("#nidform").hide();
   $("#nickform").hide();
-  $("#gogame").show();
+  $("#gogame").fadeIn(500);
 }
 
 sock.on("connect", () => {
@@ -19,7 +19,7 @@ sock.on("login", data => {
         }
         if (!data.registered) { //要 setName
             $("#nidform").hide();
-            $("#nickform").show(); //nickname 顯示
+            $("#nickform").fadeIn(500); //nickname 顯示
             $("#title").text("請設定暱稱");
             localStorage.setItem("token", data.token);
         }
@@ -85,7 +85,12 @@ $(() => {
 
     $("#resettoken").on("click", function() {
       localStorage.removeItem("token");
-      window.location.reload();
+      $("#nidform").fadeIn(500);
+      $("#gogame").hide();
+      $("#title").text("請先註冊");
+      sock.disconnect()
+      sock.connect();
+      //window.location.reload();
     });
     //如果已經有token
     if (token != null && token != "undefined") {
