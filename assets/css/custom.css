@@ -17,8 +17,7 @@
         background-color: #ffffff;
     }
     to {
-        background-color: rgba(217, 92, 92, .95);
-    }
+        background-color: rgba(255, 108, 108, .95);
 }
 
 @keyframes right {
@@ -26,7 +25,7 @@
         background-color: #ffffff;
     }
     to {
-        background-color: rgba(255, 108, 108, .95);
+        background-color: rgba(91,189,114, .95);
     }
 }
 
