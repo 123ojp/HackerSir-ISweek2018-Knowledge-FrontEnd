@@ -156,6 +156,7 @@ sock.on("offline", data => {
     $("#haltrank").text(data.ranking);
     $("#halt").text(myScore);
     finish_show();
+    getProblemFlag = true;
 })
 
 //回收答案
