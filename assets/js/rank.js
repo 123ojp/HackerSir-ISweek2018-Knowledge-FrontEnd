@@ -2,8 +2,7 @@ function getScore() {
   $.ajax({
      type: "get",
      url: "/getRanking", // 填入網路應用程式網址
-     success: function(e) {
-       j = JSON.parse(e);
+     success: function(j) {
       $("#firstplace").text(j[0]['nickname']);
       $("#secendplace").text(j[1]['nickname']);
       $("#thridplace").text(j[2]['nickname']);
