@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Rulebook</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
+</head>
+<body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Main -->
+        <section id="main">
+            <header>
+                <h1>排行榜</h1>
+                <p>Ranking</p>
+            </header>
+            <hr>
+            <h1>第一名</h1>
+            <h1 id="firstplace"></h1>
+            <div class="score_div" style="float:left;width:49%;">
+                <h2>第二名</h2>
+                <h2 id="secendplace"></h2>
+            </div>
+            <div class="score_div" style="float:right;width:49%;">
+                <h2>第三名</h2>
+                <h2 id="thridplace"></h2>
+            </div>
+            <br>
+            <ul class="actions special">
+            </ul>
+            <hr>
+            <ul class="actions special">
+              <div class="score_div" style="float:left;width:33%;">
+                  <h2>1.</h2>
+              </div>
+              <div class="score_div" style="float:middle;width:33%;">
+                  <h2 id="name1"></h2>
+              </div>
+              <div class="score_div" style="float:right;width:33%;">
+                  <h2 id="score1"></h2>
+              </div>
+            </ul><ul class="actions special">
+              <div class="score_div" style="float:left;width:33%;">
+                  <h2>2.</h2>
+              </div>
+              <div class="score_div" style="float:middle;width:33%;">
+                  <h2 id="name2"></h2>
+              </div>
+              <div class="score_div" style="float:right;width:33%;">
+                  <h2 id="score2"></h2>
+              </div>
+            </ul><ul class="actions special">
+              <div class="score_div" style="float:left;width:33%;">
+                  <h2>3.</h2>
+              </div>
+              <div class="score_div" style="float:middle;width:33%;">
+                  <h2 id="name3"></h2>
+              </div>
+              <div class="score_div" style="float:right;width:33%;">
+                  <h2 id="score3"></h2>
+              </div>
+            </ul><ul class="actions special">
+              <div class="score_div" style="float:left;width:33%;">
+                  <h2>4.</h2>
+              </div>
+              <div class="score_div" style="float:middle;width:33%;">
+                  <h2 id="name4"></h2>
+              </div>
+              <div class="score_div" style="float:right;width:33%;">
+                  <h2 id="score4"></h2>
+              </div>
+            </ul><ul class="actions special">
+              <div class="score_div" style="float:left;width:33%;">
+                  <h2>5.</h2>
+              </div>
+              <div class="score_div" style="float:middle;width:33%;">
+                  <h2 id="name5"></h2>
+              </div>
+              <div class="score_div" style="float:right;width:33%;">
+                  <h2 id="score5"></h2>
+              </div>
+            </ul>
+          <ul class="actions special">
+              <li><a href="index.html" class="button">Back</a></li><!--ANS 1-->
+          </ul>
+        </section>
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="copyright">
+              <li>&copy; Design: <a href="http://html5up.net">html5up</a></li>
+              <li>&copy; Game: <a href="http://hackersir.org">FCU Hackersir</a></li>
+            </ul>
+        </footer>
+    </div>
+    <!-- Scripts -->
+    <script src="assets/js/rank.js"></script>
+    <script>
+        <!-- 動畫 -->
+        window.addEventListener("load", () => {
+            document.body.className = document.body.className.replace(/\bis-preload\b/, "");
+        });
+        document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? " is-ie" : "");
+    </script>
+</body>
+</html>
