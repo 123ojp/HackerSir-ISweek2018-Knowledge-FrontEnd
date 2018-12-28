@@ -1,1 +1,1 @@
-var host = "wss://"+ location.hostname;
+var host = "wss://api.foxo.tw/king/";
