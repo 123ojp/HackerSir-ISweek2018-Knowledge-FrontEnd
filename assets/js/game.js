@@ -1,7 +1,7 @@
 /*waiting畫面*/
 var token = localStorage.getItem("token"); //把localStorage的東西拉回來
 var use_bot = localStorage.getItem("use_bot")==="false" ? false : true;
-var sock = io.connect(host, {transports: ["websocket"], upgrade: false});
+var sock = io.connect(host, {transports: ["websocket"], upgrade: false, path:"/king/"});
 var player;
 var getProblemFlag = false;
 var myScore = 0;
