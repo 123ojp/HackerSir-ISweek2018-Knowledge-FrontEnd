@@ -1,4 +1,4 @@
-var sock = io.connect(host, {transports: ["websocket"], upgrade: false, path:"/king/"});
+var sock = io.connect(host, {transports: ["websocket"], upgrade: false});
 
 function playGame() {
   $("#title").text("選單");

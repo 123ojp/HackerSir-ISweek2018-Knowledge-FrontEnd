@@ -1,1 +1,1 @@
-var host = "wss://api.foxo.tw/king/";
+var host = "wss://kingws.foxo.tw/";

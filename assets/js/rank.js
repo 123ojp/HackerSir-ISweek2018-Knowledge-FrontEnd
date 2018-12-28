@@ -1,7 +1,7 @@
 function getScore() {
   $.ajax({
      type: "get",
-     url: "/getRanking", // 填入網路應用程式網址
+     url: "https://kingws.foxo.tw/getRanking", // 填入網路應用程式網址
      success: function(j) {
       if (j.length >= 1){
         $("#firstplace").text(j[0]['nickname']);
